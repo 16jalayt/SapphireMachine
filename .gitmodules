@@ -1,0 +1,3 @@
+[submodule "SapphireEngine"]
+	path = SapphireEngine
+	url = https://github.com/16jalayt/SapphireEngine
