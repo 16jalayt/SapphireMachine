@@ -57,13 +57,7 @@
     <ClInclude Include="..\src\Loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\HIFFChunks\Dependency.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SapphireEngine\include\Engine\SapphireApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Movie.h">

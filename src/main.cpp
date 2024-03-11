@@ -33,9 +33,21 @@ int main(int argc, char** argv)
 	Engine::Config::parse(argc, argv);
 	Utils::initLog(argc, argv);
 
-	SapphireApp_ptr app = std::make_unique<SapphireApp>("Sapphire Template", "A game template for customizing");
+	SapphireApp_ptr app = std::make_unique<SapphireApp>();
+	//SDL_RenderSetLogicalSize(Engine::Graphics::renderer.get(), 400, 435);
 
 	Loader::Boot();
+
+	nextScene = Scene_ptr(new Scene());
+	nextScene->setBkg("79");
+	currentScene = nextScene;
+	currentScene->Run();
+	sceneChangeFlag = false;
+
+	/*Scaled_Rect destRect = { 0,0, 300, 300 };
+	//Scaled_Rect srcRect = { 0, 0, readInt(inFile), readInt(inFile) };
+	Sprite_ptr ovl = std::make_shared<Engine::Sprite>(Loader::getOVL("139.png").c_str(), destRect.x, destRect.y, RenderParent::canvas, NULL);
+	nextScene->AddSprite(ovl);*/
 
 	// loop variables
 	int exit_requested = 0;
@@ -157,7 +169,8 @@ int main(int argc, char** argv)
 		currentScene->Draw();
 		currentGUI->Draw();
 
-		Cursor::DrawCursor();
+		//TODO: re enable later
+		//Cursor::DrawCursor();
 		app->endFrame();
 	}
 

@@ -13,7 +13,6 @@ class Audio : public Engine::Audio
 {
 public:
 	static void AddSound(std::string sound, int channel, int loop, int chan1, int chan2);
-	//TODO: add persist bool
 	static void AddMusic(std::string sound, int channel, int loop, int chan1, int chan2);
 	static void AddSound(std::string sound, int channel, int loop, int chan1, int chan2, std::string scene);
 	static void AddTransition(std::string scene);

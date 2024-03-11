@@ -11,7 +11,6 @@
 
 #include "Globals.h"
 #include <Engine/Config.h>
-#include "Loader.h"
 #include <Engine/GUI.h>
 #include "Cursor.h"
 
@@ -23,7 +22,8 @@ GUI::GUI() :Engine::GUI()
 void GUI::Draw()
 {
 	Engine::GUI::Draw();
-	drawDebugMenu();
+	//TODO: re enable
+	//drawDebugMenu();
 }
 
 #if !defined(__SWITCH__) && !defined(__APPLE__)

@@ -2,6 +2,7 @@
 #include <Engine/Graphics.h>
 #include <loguru.hpp>
 #include "Scene.h"
+#include <Engine/Config.h>
 
 GUI_ptr currentGUI;
 
@@ -30,12 +31,14 @@ void Loader::UIInit()
 	//currentGUI = GUI_ptr(new GUIEngine());
 	currentGUI = std::make_shared<GUI>();
 
-	SDL_Rect CanvasRect = { 52, 18, 536, 292 };
-	currentGUI->canvasRect = { (int)(CanvasRect.x * GlobalScale), (int)(CanvasRect.y * GlobalScale), (int)(CanvasRect.w * GlobalScale), (int)(CanvasRect.h * GlobalScale) };
+	//SDL_Rect CanvasRect = { 50, 50, 350, 350 };
+	//SDL_Rect CanvasRect = { 50, 50, 300, 300 };
+	SDL_Rect CanvasRect = { (Engine::Config::windowWidth - Engine::Config::referenceHeight) / 2, 0, Engine::Config::referenceHeight, Engine::Config::referenceHeight };
+	currentGUI->canvasRect = { (int)(CanvasRect.x * Engine::Config::globalScale), (int)(CanvasRect.y * Engine::Config::globalScale), (int)(CanvasRect.w * Engine::Config::globalScale), (int)(CanvasRect.h * Engine::Config::globalScale) };
 	currentGUI->canvas = SDL_Texture_ptr(SDL_CreateTexture(Engine::Graphics::renderer.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, currentGUI->canvasRect.w, currentGUI->canvasRect.h));
 
-	Sprite_ptr frame = std::make_shared<Engine::Sprite>("frame.png", 0, 0, RenderParent::window);
-	currentGUI->AddSprite(frame);
+	//Sprite_ptr frame = std::make_shared<Engine::Sprite>("frame.png", 0, 0, RenderParent::window);
+	//currentGUI->AddSprite(frame);
 }
 
 void Loader::loadScene(int sceneName)
@@ -71,7 +74,13 @@ std::string Loader::getOVL(std::string ovlName)
 	if (ovlName.empty())
 		return std::string();
 
-	std::ifstream inFile = std::ifstream("sprites/" + ovlName + ".png", std::ios::in | std::ios::binary | std::ios::ate);
+	std::ifstream inFile = std::ifstream("sprites/" + ovlName + ".svg", std::ios::in | std::ios::binary | std::ios::ate);
+	if (!inFile.fail()) {
+		inFile.close();
+		return "sprites/" + ovlName + ".svg";
+	}
+
+	inFile = std::ifstream("sprites/" + ovlName + ".png", std::ios::in | std::ios::binary | std::ios::ate);
 	if (!inFile.fail()) {
 		inFile.close();
 		return "sprites/" + ovlName + ".png";

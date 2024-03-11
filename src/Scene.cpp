@@ -7,6 +7,7 @@
 #include <Engine/AudioClip.h>
 #include <loguru.hpp>
 #include "Audio.h"
+#include <SDL2/SDL_image.h>
 
 Scene_ptr currentScene;
 Scene_ptr nextScene;
@@ -85,7 +86,7 @@ void Scene::setBkg(std::string backName)
 
 	LOG_F(INFO, "Background: %s", backName.c_str());
 
-	std::string fileName = Loader::getVideoPath(backName);
+	std::string fileName = Loader::getOVL(backName);
 
 	//don't need much validation. Sub objects will handle that.
 	if (fileName.empty())
@@ -97,6 +98,15 @@ void Scene::setBkg(std::string backName)
 	if (ext == ".png" || ext == ".jpg")
 	{
 		bk = Sprite_ptr(new Engine::Sprite(fileName.c_str(), 0, 0));
+	}
+	if (ext == ".svg")
+	{
+		SDL_RWops* io = SDL_RWFromFile(fileName.c_str(), "rb");
+		SDL_Surface* loadedSurface = IMG_LoadSizedSVG_RW(io, Engine::Config::referenceHeight, Engine::Config::referenceHeight);
+		SDL_Texture_ptr newTexture = SDL_Texture_ptr(SDL_CreateTextureFromSurface(Engine::Graphics::renderer.get(), loadedSurface));
+		SDL_FreeSurface(loadedSurface);
+		//SDL_SetTextureColorMod(newTexture.get(), 100, 100, 100);
+		bk = Sprite_ptr(new Engine::Sprite(std::move(newTexture), 0, 0));
 	}
 	else
 	{

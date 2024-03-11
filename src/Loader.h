@@ -1,11 +1,6 @@
 #pragma once
 
 #include "GUI.h"
-//load
-//load video
-//load audio
-//load ovl
-//boot   loads starting assets and starts first script
 
 class Loader
 {

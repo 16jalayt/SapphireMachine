@@ -193,12 +193,10 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\data" /E /Y /I /D</Command>
     <ClCompile Include="..\src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\SapphireEngine\include\Engine\SapphireApp.h" />
     <ClInclude Include="..\src\Audio.h" />
     <ClInclude Include="..\src\Cursor.h" />
     <ClInclude Include="..\src\Globals.h" />
     <ClInclude Include="..\src\GUI.h" />
-    <ClInclude Include="..\src\HIFFChunks\Dependency.h" />
     <ClInclude Include="..\src\Loader.h" />
     <ClInclude Include="..\src\Movie.h" />
     <ClInclude Include="..\src\Scene.h" />
