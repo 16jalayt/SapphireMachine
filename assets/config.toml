@@ -1,0 +1,13 @@
+fullscreen=false
+logfile = false
+windowWidth = 800
+windowHeight = 600
+referenceWidth = 300
+referenceHeight = 300
+globalScale = 1
+
+[debug]
+debugHot=true
+debugNoSound = true
+debugMenuOpen = false
+lograw = true

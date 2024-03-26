@@ -368,9 +368,9 @@ build/
 out/
 data/
 referance/
-assets/
 .vscode/
 frameworks/
+sprites/
 x86/
 x64/
 obj/
