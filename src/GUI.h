@@ -13,8 +13,6 @@ public:
 	void Draw();
 private:
 	void drawDebugMenu();
-
-	bool debugMenuOpen = true;
 };
 
 using GUI_ptr = std::shared_ptr<GUI>;

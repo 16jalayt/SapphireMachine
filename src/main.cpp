@@ -27,6 +27,7 @@
 #include "Cursor.h"
 #include <Engine\SapphireApp.h>
 #include <imgui.h>
+#include <iostream>
 
 int main(int argc, char** argv)
 {
@@ -37,12 +38,6 @@ int main(int argc, char** argv)
 	//SDL_RenderSetLogicalSize(Engine::Graphics::renderer.get(), 400, 435);
 
 	Loader::Boot();
-
-	nextScene = Scene_ptr(new Scene());
-	nextScene->setBkg("79");
-	currentScene = nextScene;
-	currentScene->Run();
-	sceneChangeFlag = false;
 
 	/*Scaled_Rect destRect = { 0,0, 300, 300 };
 	//Scaled_Rect srcRect = { 0, 0, readInt(inFile), readInt(inFile) };

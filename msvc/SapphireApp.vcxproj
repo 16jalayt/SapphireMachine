@@ -190,6 +190,7 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\data" /E /Y /I /D</Command>
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Movie.cpp" />
     <ClCompile Include="..\src\Scene.cpp" />
+    <ClCompile Include="..\src\SceneLoader.cpp" />
     <ClCompile Include="..\src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +201,7 @@ XCOPY "$(SolutionDir)..\data\" "$(TargetDir)\data" /E /Y /I /D</Command>
     <ClInclude Include="..\src\Loader.h" />
     <ClInclude Include="..\src\Movie.h" />
     <ClInclude Include="..\src\Scene.h" />
+    <ClInclude Include="..\src\SceneLoader.h" />
     <ClInclude Include="..\src\Utils.h" />
   </ItemGroup>
   <ItemGroup>

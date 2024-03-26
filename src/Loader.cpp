@@ -9,19 +9,18 @@ GUI_ptr currentGUI;
 bool Loader::Boot()
 {
 	//Load preload scene
-	loadScene("Boot");
+	//loadScene("Boot");
 
-	//
 	//Archive::Load_Archive((char*)"data.dat");
 
 	//Startup Flags:
 	//set 81 to true
-	flags[1081 - 1000] = true;
+	//flags[1081 - 1000] = true;
 
 	UIInit();
 
 	//Load initial scene
-	loadScene("4604");
+	loadScene("scene");
 
 	return true;
 }
@@ -32,9 +31,9 @@ void Loader::UIInit()
 	currentGUI = std::make_shared<GUI>();
 
 	//SDL_Rect CanvasRect = { 50, 50, 350, 350 };
-	//SDL_Rect CanvasRect = { 50, 50, 300, 300 };
-	SDL_Rect CanvasRect = { (Engine::Config::windowWidth - Engine::Config::referenceHeight) / 2, 0, Engine::Config::referenceHeight, Engine::Config::referenceHeight };
-	currentGUI->canvasRect = { (int)(CanvasRect.x * Engine::Config::globalScale), (int)(CanvasRect.y * Engine::Config::globalScale), (int)(CanvasRect.w * Engine::Config::globalScale), (int)(CanvasRect.h * Engine::Config::globalScale) };
+	SDL_Rect CanvasRect = { 0, 0, 300, 300 };
+	//SDL_Rect CanvasRect = { (Engine::Config::windowWidth - Engine::Config::referenceHeight) / 8, 0, Engine::Config::referenceHeight, Engine::Config::referenceHeight };
+	currentGUI->canvasRect = ScaleRect(CanvasRect, Engine::Config::globalScale);
 	currentGUI->canvas = SDL_Texture_ptr(SDL_CreateTexture(Engine::Graphics::renderer.get(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, currentGUI->canvasRect.w, currentGUI->canvasRect.h));
 
 	//Sprite_ptr frame = std::make_shared<Engine::Sprite>("frame.png", 0, 0, RenderParent::window);

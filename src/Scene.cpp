@@ -8,6 +8,7 @@
 #include <loguru.hpp>
 #include "Audio.h"
 #include <SDL2/SDL_image.h>
+#include "SceneLoader.h"
 
 Scene_ptr currentScene;
 Scene_ptr nextScene;
@@ -105,7 +106,6 @@ void Scene::setBkg(std::string backName)
 		SDL_Surface* loadedSurface = IMG_LoadSizedSVG_RW(io, Engine::Config::referenceHeight, Engine::Config::referenceHeight);
 		SDL_Texture_ptr newTexture = SDL_Texture_ptr(SDL_CreateTextureFromSurface(Engine::Graphics::renderer.get(), loadedSurface));
 		SDL_FreeSurface(loadedSurface);
-		//SDL_SetTextureColorMod(newTexture.get(), 100, 100, 100);
 		bk = Sprite_ptr(new Engine::Sprite(std::move(newTexture), 0, 0));
 	}
 	else
@@ -176,8 +176,7 @@ void _LoadScene(std::string sceneName)
 	flags[3] = false;
 	flags[4] = false;
 
-	//TODO: call scene loader
-	//SceneLoader::Load_Scene(sceneName);
+	SceneLoader::loadSceneFromJSON(sceneName);
 	currentScene = nextScene;
 	currentScene->Run();
 }

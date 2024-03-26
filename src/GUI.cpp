@@ -13,6 +13,7 @@
 #include <Engine/Config.h>
 #include <Engine/GUI.h>
 #include "Cursor.h"
+#include <Engine/Config.h>
 
 GUI::GUI() :Engine::GUI()
 {
@@ -29,7 +30,7 @@ void GUI::Draw()
 #if !defined(__SWITCH__) && !defined(__APPLE__)
 void GUI::drawDebugMenu()
 {
-	if (debugMenuOpen)
+	if (Engine::Config::debugMenuOpen)
 	{
 		ImGui::SetNextWindowSize(ImVec2(700, 500));
 
@@ -37,7 +38,7 @@ void GUI::drawDebugMenu()
 		//ImGui::SetNextWindowCollapsed(true);
 
 		// Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-		ImGui::Begin("Debug Menu", &debugMenuOpen,
+		ImGui::Begin("Debug Menu", &Engine::Config::debugMenuOpen,
 			ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings);
 
 		ImGui::End();
