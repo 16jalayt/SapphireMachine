@@ -16,7 +16,7 @@ bool sceneChangeFlag = false;
 bool sceneReloadFlag = false;
 std::string sceneChangeName;
 std::string prevScene;
-bool flags[576] = {};
+bool flags[100] = {};
 
 Scene::Scene()
 {
@@ -167,9 +167,12 @@ void _ChangeScene(std::string sceneName)
 //For internal use. Call Loader::loadScene instead
 void _LoadScene(std::string sceneName)
 {
+	LOG_F(INFO, "\n\n\n\n*******New scene: %s*******", sceneName.c_str());
+
 	nextScene = Scene_ptr(new Scene());
 
 	//Reset current scene flags
+	//First 5 flags are reserved for local and are reset per scene load
 	flags[0] = false;
 	flags[1] = false;
 	flags[2] = false;

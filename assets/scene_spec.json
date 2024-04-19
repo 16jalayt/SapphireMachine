@@ -3,8 +3,7 @@
     "colormod": [128,0,0],
     "objects":
     [
-        {"name":"Ladder", "image":"85", "x":200, "y":0, "Texture Rect":[0,0,100,100], "rotation":90},
+        {"name":"Ladder", "image":"85", "x":200, "y":0, "Texture Rect":[0,0,100,100], "rotation":90,"displayIf":10, "setOnClick":11, "loadScene":"scene"},
         {"name":"Clock", "image":"86", "x":50, "y":100},
-        {"name":"door", "image":"81", "x":5, "y":150}
     ]
 }

@@ -5,7 +5,6 @@
     [
 		{"name":"trapdoor", "image":"83", "x":180, "y":10},
         {"name":"Ladder", "image":"85", "x":195, "y":15},
-        {"name":"Clock", "image":"86", "x":50, "y":100},
-        {"name":"door", "image":"81", "x":15, "y":130, "loadScene":"scene2"}
+        {"name":"door", "image":"81", "x":15, "y":130, "loadScene":"scene"}
     ]
 }

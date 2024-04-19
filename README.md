@@ -1,7 +1,7 @@
 # SapphireEngine Template
-An game template for https://github.com/16jalayt/SapphireEngine. A template project for SapphireEngine. Designed mainly as a programming exercise.
+An game using https://github.com/16jalayt/SapphireEngine. Designed to recreate the Submachine series of games. Designed mainly as a programming exercise.
 
-The project is far from playable!
+The project is far from playable! Assets not included. No instructions yet.
 
 To checkout: git clone --recursive https://github.com/16jalayt/SapphireEngine-Template
 

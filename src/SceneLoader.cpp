@@ -57,6 +57,8 @@ void SceneLoader::loadSceneFromJSON(std::string scenePath)
 			std::string name = Loader::getOVL(objects[i]["image"].asString());
 			int x = objects[i]["x"].asInt();
 			int y = objects[i]["y"].asInt();
+			Scaled_Rect pos_rect = { x, y, -1, -1 };
+
 			Scaled_Rect texture_rect = Scaled_Rect();
 			if (objects[i].isMember("Texture Rect"))
 			{
@@ -68,12 +70,42 @@ void SceneLoader::loadSceneFromJSON(std::string scenePath)
 				else
 					LOG_F(WARNING, "\nJSON Texture Rect parameter incorect length");
 			}
+
+			Button_ptr ovl = std::make_shared<Engine::Button>(pos_rect, name.c_str(), RenderParent::canvas, true, texture_rect);
+			nextScene->AddHotzone(ovl);
+
 			if (objects[i].isMember("rotation"))
 			{
-				int rotation = objects[i]["rotation"].asInt();
+				ovl->rotation = objects[i]["rotation"].asInt();
 			}
-			Sprite_ptr ovl = std::make_shared<Engine::Sprite>(name.c_str(), x, y, RenderParent::canvas, texture_rect);
-			nextScene->AddSprite(ovl);
+			if (objects[i].isMember("displayIf"))
+			{
+				ovl->visible(flags[objects[i]["displayIf"].asInt()]);
+				//TODO: either visibility property or surround the creation.
+				//some way to update
+			}
+			if (objects[i].isMember("setOnClick"))
+			{
+				int changeTo = objects[i]["setOnClick"].asInt();
+				//TODO: either visibility property or surround the creation.
+				ovl->callback = [changeTo = changeTo]
+					{
+						//Toggle Value
+						flags[changeTo] = !flags[changeTo];
+					};
+			}
+			if (objects[i].isMember("loadScene"))
+			{
+				std::string changeTo = objects[i]["loadScene"].asString();
+				ovl->callback = [changeTo = changeTo]
+					{
+						Loader::loadScene(changeTo);
+					};
+			}
+			/*hotZone->hover_event = [cursorNumber = cursorNumber]
+				{
+					Cursor::setCursor(cursorNumber);
+				};*/
 		}
 	}
 	catch (Json::LogicError& e)

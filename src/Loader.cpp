@@ -21,6 +21,7 @@ bool Loader::Boot()
 
 	//Load initial scene
 	loadScene("scene");
+	//loadScene("scene_spec");
 
 	return true;
 }
