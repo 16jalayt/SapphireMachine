@@ -6,7 +6,7 @@
 
 void SceneLoader::loadSceneFromJSON(std::string scenePath)
 {
-	scenePath += ".json";
+	//scenePath += ".json";
 	//TODO: No error on not found. Validate stream first
 	/*std::ifstream ifs("test.json");
 	Json::Reader reader;
@@ -19,13 +19,20 @@ void SceneLoader::loadSceneFromJSON(std::string scenePath)
 
 	Json::Value root;
 	std::ifstream ifs;
-	ifs.open(scenePath);
+	//ifs.open(scenePath);
+	std::string sceneFilePath = Loader::getDataFile(scenePath);
+	if (sceneFilePath.empty())
+	{
+		LOG_F(ERROR, "Failed to load scene: %s", scenePath.c_str());
+		quit();
+	}
+	ifs.open(sceneFilePath);
 
 	Json::CharReaderBuilder builder;
 	builder["collectComments"] = false;
 	Json::String errs;
 	if (!parseFromStream(builder, ifs, &root, &errs)) {
-		LOG_F(ERROR, "Error parsing json file %s: %s", scenePath.c_str(), errs.c_str());
+		LOG_F(ERROR, "Error parsing json file %s: %s", sceneFilePath.c_str(), errs.c_str());
 		//TODO: not straight quit
 		quit();
 	}

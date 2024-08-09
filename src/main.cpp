@@ -1,11 +1,8 @@
 #define SDL_MAIN_HANDLED
 //disable for insecure c functions and a warning about cxx17 standard
-#pragma warning( disable : 4996 )
+#pragma warning( disable : 4996 4038 )
 
-#define LOGURU_IMPLEMENTATION 1
-#define LOGURU_WITH_STREAMS 1
-#define LOGURU_FILENAME_WIDTH 15
-#define LOGURU_THREADNAME_WIDTH 13
+#include <Engine\Config.h>
 #include <loguru.hpp>
 
 #ifdef __APPLE__
@@ -19,11 +16,9 @@
 #include "globals.h"
 #include <Engine\Utils.h>
 #include <Engine\Graphics.h>
-#include <Engine\Config.h>
 #include "Scene.h"
 #include "Loader.h"
 #include "Utils.h"
-
 #include "Cursor.h"
 #include <Engine\SapphireApp.h>
 #include <imgui.h>

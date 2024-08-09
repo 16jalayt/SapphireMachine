@@ -19,8 +19,10 @@ bool Loader::Boot()
 
 	UIInit();
 
+	//TODO: move to config?
 	//Load initial scene
-	loadScene("scene");
+	loadScene("111");
+	//loadScene("scene");
 	//loadScene("scene_spec");
 
 	return true;
@@ -55,19 +57,37 @@ void Loader::loadScene(std::string sceneName)
 }
 
 //Scene files
-std::ifstream Loader::getDataFile(std::string sceneName)
+std::string Loader::getDataFile(std::string sceneName)
+{
+	if (sceneName.empty())
+		return std::string();
+
+	std::ifstream inFile = std::ifstream(sceneName + ".json", std::ios::in | std::ios::binary | std::ios::ate);
+	if (!inFile.fail()) {
+		return sceneName + ".json";
+	}
+
+	inFile = std::ifstream("rooms/" + sceneName + ".json", std::ios::in | std::ios::binary | std::ios::ate);
+	if (!inFile.fail()) {
+		return "rooms/" + sceneName + ".json";
+	}
+
+	LOG_F(ERROR, "Could not open Scene file: %s", sceneName.c_str());
+	return std::string();
+}
+/*std::ifstream Loader::getDataFile(std::string sceneName)
 {
 	if (sceneName.empty())
 		return std::ifstream();
 
-	std::ifstream inFile = std::ifstream("scenes/" + sceneName + ".hiff", std::ios::in | std::ios::binary | std::ios::ate);
+	std::ifstream inFile = std::ifstream("rooms/" + sceneName + ".svg", std::ios::in | std::ios::binary | std::ios::ate);
 	if (!inFile.fail()) {
 		return inFile;
 	}
 
 	LOG_F(ERROR, "Could not open Scene file: %s", sceneName.c_str());
 	return std::ifstream();
-}
+}*/
 
 std::string Loader::getOVL(std::string ovlName)
 {
