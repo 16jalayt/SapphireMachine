@@ -5,6 +5,6 @@
     [
         {"name":"Jabberwock", "chapter":1},
         {"name":"Cheshire Cat", "chapter":6},
-        {"name":"Mad Hatter", "chapter":7}
+        {"name":"Mad Hatter", "cow":true, "chapter":7}
     ]
 }

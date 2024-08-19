@@ -78,12 +78,21 @@ void SceneLoader::loadSceneFromJSON(std::string scenePath)
 					LOG_F(WARNING, "\nJSON Texture Rect parameter incorect length");
 			}
 
+			//TODO: make way to set disabled later than constructor
 			Button_ptr ovl = std::make_shared<Engine::Button>(pos_rect, name.c_str(), RenderParent::canvas, true, texture_rect);
 			nextScene->AddHotzone(ovl);
 
 			if (objects[i].isMember("rotation"))
 			{
 				ovl->rotation = objects[i]["rotation"].asInt();
+			}
+			if (objects[i].isMember("flip"))
+			{
+				std::string flipState = objects[i]["flip"].asString();
+				if (flipState.find("H") != std::string::npos)
+					ovl->flipped = (SDL_RendererFlip)(ovl->flipped | SDL_FLIP_HORIZONTAL);
+				if (flipState.find("V") != std::string::npos)
+					ovl->flipped = (SDL_RendererFlip)(ovl->flipped | SDL_FLIP_VERTICAL);
 			}
 			if (objects[i].isMember("displayIf"))
 			{

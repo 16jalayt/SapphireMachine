@@ -1,0 +1,14 @@
+{
+    //"sceneBack":"138",
+	"sceneBack":"79",
+    "objects":
+    [
+		//{"name":"Up Trapdoor", "image":"83", "x":180, "y":10},
+        //{"name":"Up Ladder", "image":"85", "x":195, "y":15},
+		{"name":"Wall Puzzle", "image":"3", "x":-2, "y":-2},
+		{"name":"Down Trapdoor", "image":"83", "x":175, "y":267, "flip":"V"},
+        {"name":"Down Ladder", "image":"122", "x":183, "y":260},
+        {"name":"doorLeft", "image":"81", "x":16, "y":130, "loadScene":"scene2"},
+		{"name":"doorRight", "image":"81", "x":260, "y":130, "loadScene":"scene", "flip":"H"}
+    ]
+}
