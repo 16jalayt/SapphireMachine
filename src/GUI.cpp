@@ -30,7 +30,7 @@ void GUI::Draw()
 #if !defined(__SWITCH__) && !defined(__APPLE__)
 void GUI::drawDebugMenu()
 {
-	if (Engine::Config::debugMenuOpen)
+	if (Engine::Config::debugMenuEnabled)
 	{
 		ImGui::SetNextWindowSize(ImVec2(700, 500));
 
@@ -38,7 +38,7 @@ void GUI::drawDebugMenu()
 		//ImGui::SetNextWindowCollapsed(true);
 
 		// Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-		ImGui::Begin("Debug Menu", &Engine::Config::debugMenuOpen,
+		ImGui::Begin("Debug Menu", &Engine::Config::debugMenuEnabled,
 			ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings);
 
 		ImGui::End();

@@ -2,7 +2,6 @@
 //disable for insecure c functions and a warning about cxx17 standard
 #pragma warning( disable : 4996 4038 )
 
-#include <Engine\Config.h>
 #include <loguru.hpp>
 
 #ifdef __APPLE__
@@ -13,7 +12,7 @@
 #include <switch.h>
 #endif
 
-#include "globals.h"
+#include "Globals.h"
 #include <Engine\Utils.h>
 #include <Engine\Graphics.h>
 #include "Scene.h"
@@ -26,10 +25,8 @@
 
 int main(int argc, char** argv)
 {
-	Engine::Config::parse(argc, argv);
-	Utils::initLog(argc, argv);
-
-	SapphireApp_ptr app = std::make_unique<SapphireApp>();
+	SapphireApp_ptr app = std::make_unique<SapphireApp>(argc, argv);
+	Utils::initLog();
 	//SDL_RenderSetLogicalSize(Engine::Graphics::renderer.get(), 400, 435);
 
 	Loader::Boot();

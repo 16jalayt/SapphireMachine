@@ -1,5 +1,7 @@
 fullscreen=false
-logfile = false
+logfile = true
+gameName = "Sapphire Machine"
+gameDesc = "A reimplementation of Submachine"
 windowWidth = 800
 windowHeight = 600
 referenceWidth = 300
@@ -7,7 +9,8 @@ referenceHeight = 300
 globalScale = 1
 
 [debug]
-debugHot=true
+debugHot = true
 debugNoSound = true
-debugMenuOpen = false
-lograw = true
+debugMenuEnabled = true
+logRaw = true
+logLevel = "ERROR"

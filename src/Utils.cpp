@@ -1,23 +1,14 @@
 #include "Utils.h"
 #include <Engine/Config.h>
 #include <loguru.hpp>
+#include <fstream>
 
-void Utils::initLog(int argc, char** argv)
+//Has to be done in both threads
+void Utils::initLog()
 {
-	Engine::Config::initLog(argc, argv);
+	loguru::g_stderr_verbosity = Engine::Config::GetVerbosity();
 
-#ifdef _DEBUG
-	loguru::g_stderr_verbosity = loguru::Verbosity_MAX;
-#else
-	loguru::g_stderr_verbosity = loguru::Verbosity_ERROR;
-#endif
-
-	//Force to max because switch hard to debug
-#ifdef __SWITCH__
-	loguru::g_stderr_verbosity = loguru::Verbosity_MAX;
-#endif
-
-	if (Engine::Config::lograw)
+	if (Engine::Config::logRaw)
 	{
 		loguru::g_preamble = false;
 	}
@@ -29,13 +20,7 @@ void Utils::initLog(int argc, char** argv)
 		loguru::g_preamble_verbose = false;
 	}
 
-	//init important for crash logging
-	loguru::init(argc, argv);
-	//Init sets to main thread by default
-	loguru::set_thread_name("Main Thread");
-
-	if (Engine::Config::logfile)
-		loguru::add_file("game.log", loguru::Truncate, loguru::Verbosity_INFO);
+	loguru::set_thread_name("Game Thread");
 
 	//Logging tests/examples
 	//LOG_F(INFO, "I'm hungry for some %.3f!", 3.14159);

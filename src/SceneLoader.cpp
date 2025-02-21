@@ -79,7 +79,7 @@ void SceneLoader::loadSceneFromJSON(std::string scenePath)
 			}
 
 			//TODO: make way to set disabled later than constructor
-			Button_ptr ovl = std::make_shared<Engine::Button>(pos_rect, name.c_str(), RenderParent::canvas, true, texture_rect);
+			Button_ptr ovl = std::make_shared<Engine::Button>(pos_rect, name.c_str(), RenderParent::canvas, texture_rect);
 			nextScene->AddHotzone(ovl);
 
 			if (objects[i].isMember("rotation"))
@@ -96,7 +96,7 @@ void SceneLoader::loadSceneFromJSON(std::string scenePath)
 			}
 			if (objects[i].isMember("displayIf"))
 			{
-				ovl->visible(flags[objects[i]["displayIf"].asInt()]);
+				ovl->setVisible(flags[objects[i]["displayIf"].asBool()]);
 				//TODO: either visibility property or surround the creation.
 				//some way to update
 			}
