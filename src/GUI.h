@@ -11,6 +11,7 @@ class GUI : public Engine::GUI
 public:
 	GUI();
 	void Draw();
+	bool cheatSheetOpen = false;
 private:
 	void drawDebugMenu();
 };

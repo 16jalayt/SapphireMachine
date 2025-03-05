@@ -11,6 +11,6 @@ globalScale = 1
 [debug]
 debugHot = true
 debugNoSound = true
-debugMenuEnabled = true
+debugMenuEnabled = false
 logRaw = true
 logLevel = "ERROR"

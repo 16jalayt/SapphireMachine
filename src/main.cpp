@@ -2,45 +2,40 @@
 //disable for insecure c functions and a warning about cxx17 standard
 #pragma warning( disable : 4996 4038 )
 
+#ifdef __SWITCH__
+#include <switch.h>
+#endif
+
+#include <Engine/Config.h>
 #include <loguru.hpp>
 
 #ifdef __APPLE__
 #include <unistd.h>
 #endif
 
-#ifdef __SWITCH__
-#include <switch.h>
-#endif
+#include <Engine/Utils.h>
+#include <Engine/Graphics.h>
 
-#include "Globals.h"
-#include <Engine\Utils.h>
-#include <Engine\Graphics.h>
 #include "Scene.h"
 #include "Loader.h"
 #include "Utils.h"
-#include "Cursor.h"
-#include <Engine\SapphireApp.h>
-#include <imgui.h>
-#include <iostream>
 
-int main(int argc, char** argv)
+#include "Cursor.h"
+#include <Engine/SapphireApp.h>
+#include "Engine/IMGUIInclude.h"
+
+int main(int argc, char* argv[])
 {
 	SapphireApp_ptr app = std::make_unique<SapphireApp>(argc, argv);
 	Utils::initLog();
-	//SDL_RenderSetLogicalSize(Engine::Graphics::renderer.get(), 400, 435);
 
 	Loader::Boot();
-
-	/*Scaled_Rect destRect = { 0,0, 300, 300 };
-	//Scaled_Rect srcRect = { 0, 0, readInt(inFile), readInt(inFile) };
-	Sprite_ptr ovl = std::make_shared<Engine::Sprite>(Loader::getOVL("139.png").c_str(), destRect.x, destRect.y, RenderParent::canvas, NULL);
-	nextScene->AddSprite(ovl);*/
 
 	// loop variables
 	int exit_requested = 0;
 	SDL_Event event;
 
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(NO_IMGUI)
 	//IMGUI does not like being in a dll
 	ImGui::SetCurrentContext(currentGUI->imCtx);
 	ImGuiIO& io = ImGui::GetIO();
@@ -52,7 +47,7 @@ int main(int argc, char** argv)
 	while (!exit_requested)
 #endif
 	{
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(NO_IMGUI)
 		//IMGUI does not like being in a dll
 		ImGui::SetCurrentContext(currentGUI->imCtx);
 #endif
@@ -66,6 +61,8 @@ int main(int argc, char** argv)
 			sceneChangeFlag = false;
 			_LoadScene(sceneChangeName);
 		}
+
+		const Uint8* key_state = SDL_GetKeyboardState(NULL);
 
 		while (SDL_PollEvent(&event))
 		{
@@ -98,7 +95,7 @@ int main(int argc, char** argv)
 						if (wait < 100)
 							wait++;
 						break;*/
-				case KEY_MINUS:
+				case KEY_PLUS:
 					LOG_F(ERROR, "\nShutting down engine\n");
 					exit_requested = 1;
 					break;
@@ -111,13 +108,21 @@ int main(int argc, char** argv)
 					exit_requested = 1;
 					break;
 				}
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+				else if (event.key.keysym.sym == SDLK_c &&
+					key_state[SDL_SCANCODE_LCTRL] &&
+					key_state[SDL_SCANCODE_LSHIFT] &&
+					key_state[SDL_SCANCODE_TAB])
+				{
+					if (Engine::Config::debugMenuEnabled)
+						currentGUI->cheatSheetOpen = !currentGUI->cheatSheetOpen;
+				}
+#if !defined(NO_IMGUI)
 				if (io.WantCaptureKeyboard)
 #endif
 					break;
 			case SDL_MOUSEBUTTONDOWN:
 			case SDL_FINGERDOWN:
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(NO_IMGUI)
 				if (!io.WantCaptureMouse)
 #endif
 					//LOG_F(ERROR, "FingerDown");
@@ -126,7 +131,7 @@ int main(int argc, char** argv)
 				break;
 			case SDL_MOUSEMOTION:
 			case SDL_FINGERMOTION:
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(NO_IMGUI)
 				if (!io.WantCaptureMouse)
 				{
 #endif
@@ -134,11 +139,11 @@ int main(int argc, char** argv)
 					//TODO: explicitly set to system cursor for IMGUI?
 					Cursor::CursorChanged = false;
 					currentScene->EventProc(event);
-#if !defined(__SWITCH__) && !defined(__APPLE__)
+#if !defined(NO_IMGUI)
 				}
 #endif
 				break;
-
+				//TODO: resize window. Mainly for switch
 				/*switch (event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE:

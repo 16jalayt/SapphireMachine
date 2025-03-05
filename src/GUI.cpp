@@ -1,19 +1,9 @@
 #include "GUI.h"
-#include <string>
 
-#if !defined(__SWITCH__) && !defined(__APPLE__)
-#include <imgui.h>
-#include <imgui_impl_sdl2.h>
-#include <imgui_impl_sdlrenderer2.h>
-#include <imgui_stdlib.h>
-#include <imgui_internal.h>
-#endif
-
-#include "Globals.h"
 #include <Engine/Config.h>
 #include <Engine/GUI.h>
 #include "Cursor.h"
-#include <Engine/Config.h>
+#include "Engine/IMGUIInclude.h"
 
 GUI::GUI() :Engine::GUI()
 {
@@ -23,16 +13,15 @@ GUI::GUI() :Engine::GUI()
 void GUI::Draw()
 {
 	Engine::GUI::Draw();
-	//TODO: re enable
-	//drawDebugMenu();
+	drawDebugMenu();
 }
 
-#if !defined(__SWITCH__) && !defined(__APPLE__)
 void GUI::drawDebugMenu()
 {
-	if (Engine::Config::debugMenuEnabled)
+#if !defined(NO_IMGUI)
+	if (cheatSheetOpen)
 	{
-		ImGui::SetNextWindowSize(ImVec2(700, 500));
+		ImGui::SetNextWindowSize(ImVec2(300, 300));
 
 		//To make minimized at start
 		//ImGui::SetNextWindowCollapsed(true);
@@ -43,6 +32,6 @@ void GUI::drawDebugMenu()
 
 		ImGui::End();
 	}
-}
 
 #endif
+}
